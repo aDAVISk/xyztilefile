@@ -21,8 +21,6 @@ class XYZHttpTileFile(XYZTileFile):
 for module in os.listdir(os.path.dirname(__file__)):
     if module == '__init__.py' or module == "xyztilefile.py" \
         or module == "xyzgeneric.py" or module[-3:] != '.py':
-        #or module[-3:] != '.py':
-        #print("Pass")
         continue
     #print(f"Importing {module}")
     exec("from .%s import *" % module[:-3])
