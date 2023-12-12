@@ -8,6 +8,3 @@ class XYZHttpSample(XYZHttpGeneric):
 
 xyztiletype = {"sample":XYZSample}
 xyzhttptype = {"sample":XYZHttpSample}
-
-#print(globals())
-#globals()["XYZTileFile"].types["sample"] = XYZSample

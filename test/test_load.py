@@ -12,3 +12,5 @@ pp.pprint(test_http)
 
 test_sample = XYZTileFile(type="sample2")
 pp.pprint(test_sample)
+
+print(globals())
