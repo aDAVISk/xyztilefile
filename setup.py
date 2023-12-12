@@ -8,6 +8,7 @@ setup(
     version="0.0.1",  # バージョン
     description="manage files in xyz tile format",  # 説明
     author='aDAVISk',  # 作者名
-    packages=find_packages(),  # 使うモジュール一覧を指定する
-    license='MIT'  # ライセンス
+    license='MIT',  # ライセンス
+    package_dir={'': 'src'},
+    packages=setuptools.find_packages(where='src')
 )

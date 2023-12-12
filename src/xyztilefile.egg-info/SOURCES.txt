@@ -1,0 +1,12 @@
+LICENSE
+README.md
+setup.py
+src/xyztilefile/__init__.py
+src/xyztilefile/xyzgeneric.py
+src/xyztilefile/xyzsample.py
+src/xyztilefile/xyztilefile.py
+src/xyztilefile.egg-info/PKG-INFO
+src/xyztilefile.egg-info/SOURCES.txt
+src/xyztilefile.egg-info/dependency_links.txt
+src/xyztilefile.egg-info/top_level.txt
+test/test_load.py
