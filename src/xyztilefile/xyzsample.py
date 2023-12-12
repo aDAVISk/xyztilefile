@@ -1,13 +1,13 @@
 from .xyzgeneric import *
 
-class XYZSample(XYZgeneric):
+class XYZSample(XYZGeneric):
     pass
 
 class XYZHttpSample(XYZHttpGeneric):
     pass
 
-tiletype = {"sample":XYZSample}
-httptype = {"sample":XYZHttpSample}
+xyztiletype = {"sample":XYZSample}
+xyzhttptype = {"sample":XYZHttpSample}
 
 #print(globals())
 #globals()["XYZTileFile"].types["sample"] = XYZSample

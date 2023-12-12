@@ -1,7 +1,6 @@
 import os
 from .xyzgeneric import *
 
-
 class XYZTileFile:
     types = {}
     def __new__(cls, type=None):
@@ -9,7 +8,7 @@ class XYZTileFile:
             return XYZHttpTileFile()
         if type in cls.types:
             return cls.types[type]()
-        return XYZgeneric()
+        return XYZGeneric()
 
 class XYZHttpTileFile(XYZTileFile):
     types = {}
@@ -25,10 +24,12 @@ for module in os.listdir(os.path.dirname(__file__)):
         #or module[-3:] != '.py':
         #print("Pass")
         continue
-    print(f"Importing {module}")
+    #print(f"Importing {module}")
     exec("from .%s import *" % module[:-3])
-    XYZTileFile.types.update(tiletype)
-    XYZHttpTileFile.types.update(httptype)
+    XYZTileFile.types.update(xyztiletype)
+    XYZHttpTileFile.types.update(xyzhttptype)
 del module
+del xyztiletype
+del xyzhttptype
 
-print(XYZTileFile.types)
+#print(XYZTileFile.types)
