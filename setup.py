@@ -3,9 +3,10 @@
 # ref: https://qiita.com/shonansurvivors/items/0fbcbfde129f2d26301c
 
 from setuptools import setup, find_packages
+import os
 
 # long_description(後述)に、GitHub用のREADME.mdを指定
-with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+with open(os.path.join(os.path.dirname(__file__), 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
