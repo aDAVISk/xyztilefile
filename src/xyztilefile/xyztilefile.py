@@ -1,4 +1,5 @@
 import os
+import math
 from .xyzgeneric import *
 
 __LATLIMIT = 85.0511
