@@ -21,7 +21,7 @@ class XYZGeneric:
 
     def __repr__(self):
         # ref: https://ja.pymotw.com/2/pprint/
-        return f"<{repr(self.__class__)}: base={repr(self._base)}, {repr(self._loadfunc == _loadfunc)}>"
+        return f"<{repr(self.__class__)}: base={repr(self._base)}>"
 
 class XYZHttpGeneric(XYZGeneric):
     def __init__(self, **kwargs):

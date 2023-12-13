@@ -22,4 +22,5 @@ try:
 except ValueError as e:
     print(f"ValueError is detected as expected: {e}")
 
+pp.pprint(calc_xyz_from_lonlat(135.0,35.0,15))
 #print(globals())
