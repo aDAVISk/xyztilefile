@@ -32,8 +32,10 @@ class XYZTileFile:
 
     An instance of the appropriate XYZFiletype class will be returned by judging the extension of the given base string. This class will call XYZHttpTileFile constructor if the base start with "http://".
 
-    Keyword arguments:
+    Args:
         base (string): base url or file path of xyz file system. This must contain keywords "{x}", "{y}", and "{z}".
+
+    Optional Keyargs:
         loadfunc (method): (optional) user-defined loading function.
         savefunc (method): (optional) user-defined saving function.
 
@@ -42,21 +44,21 @@ class XYZTileFile:
     def __new__(cls, base: str, **kwargs):
         if isinstance(base, str):
             if base[0:7] == "http://":
-                return XYZHttpTileFile(base=base, **kwargs)
+                return XYZHttpTileFile(base, **kwargs)
             type = os.path.splitext(base)[-1][1:]
             if type in cls.typeclass:
-                return cls.typeclass[type](base=base, **kwargs)
+                return cls.typeclass[type](base, **kwargs)
         return XYZGeneric(base=base, **kwargs)
 
 class XYZHttpTileFile(XYZTileFile):
     typeclass = {}
-    def __new__(cls, base=None, **kwargs):
+    def __new__(cls, base, **kwargs):
         if isinstance(base, str):
             if base[0:7] != "http://":
-                return XYZTileFile(base=base, **kwargs)
+                return XYZTileFile(base, **kwargs)
             type = os.path.splitext(base)[-1][1:]
             if type in cls.typeclass:
-                return cls.typeclass[type](base=base, **kwargs)
+                return cls.typeclass[type](base, **kwargs)
         return XYZHttpGeneric(base=base, **kwargs)
 
 

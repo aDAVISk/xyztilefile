@@ -6,7 +6,7 @@ _loadfunc = lambda x : x
 _savefunc = lambda x : x
 
 class XYZGeneric:
-    def __init__(self, base=None, loadfunc=_loadfunc, savefunc=_savefunc):
+    def __init__(self, base: str, loadfunc=_loadfunc, savefunc=_savefunc):
         if not isinstance(base, str):
             raise TypeError("base must be string.")
         if not ("{x}" in base and "{y}" in base and "{z}" in base):
