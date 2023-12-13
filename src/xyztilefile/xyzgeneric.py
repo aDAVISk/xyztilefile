@@ -1,9 +1,11 @@
 import warnings
 
-# Default functions for loading and saving
+# Default functions for loading and saving files
 _loadfunc = lambda filename : filename
 
 _savefunc = lambda filename, val : print(filename, val)
+
+_parsefunc = lambda response : print(response)
 
 class XYZGeneric:
     def __init__(self, base: str, loadfunc=_loadfunc, savefunc=_savefunc):
@@ -48,9 +50,20 @@ class XYZGeneric:
         return True
 
 class XYZHttpGeneric(XYZGeneric):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, base, parsefunc=_parsefunc, loadfunc=None, savefunc=None, **kwargs):
+        super().__init__(base, loadfunc=loadfunc, savefunc=savefunc, **kwargs)
+        self._parsefunc = parsefunc
+        if parsefunc is _parsefunc:
+            warnings.warn("XYZHttpGeneric: default parsing function is set.")
         #print(self.data)
+
+    def get(self, x:int, y:int, z:int):
+        key = self._base.format(x=x,y=y,z=z)
+        if key not in self._base:
+            # get response with key, then pass response to _parsefunc.
+            self._data[key] = self._parsefunc(key)
+        return self._data[key]
+
 
     def set(self, *args, **kwargs):
         raise NotImplementedError("set is nulled for http tile class.")

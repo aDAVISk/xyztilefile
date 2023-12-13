@@ -3,6 +3,9 @@ import pprint
 
 pp = pprint.PrettyPrinter(indent=3)
 
+pp.pprint(calc_xyz_from_lonlat(135.0,35.0,15))
+x, y, z = calc_xyz_from_lonlat(135.0,35.0,15)
+
 test= XYZTileFile("./test/{z}/{x}/{y}.png")
 pp.pprint(test)
 
@@ -12,6 +15,8 @@ try:
     pp.pprint(test_http.save())
 except NotImplementedError as e:
     print(f"NotImplementedError is detected as expected: {e}")
+test_http.get(x,y,z)
+
 
 test_sample = XYZTileFile("./tile/{z}/{x}/{y}.xyzsample")
 pp.pprint(test_sample)
@@ -26,8 +31,6 @@ try:
 except ValueError as e:
     print(f"ValueError is detected as expected: {e}")
 
-pp.pprint(calc_xyz_from_lonlat(135.0,35.0,15))
 
 test_main = XYZTileFile("~/Documents/tile_sample/{z}/{x}/{y}.txt")
-x, y, z = calc_xyz_from_lonlat(135.0,35.0,15)
 pp.pprint(test_main.get(x,y,z))
