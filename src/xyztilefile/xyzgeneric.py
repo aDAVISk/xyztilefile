@@ -11,17 +11,17 @@ class XYZGeneric:
             raise TypeError("base must be string.")
         if not ("{x}" in base and "{y}" in base and "{z}" in base):
             raise ValueError('base must contain "{x}", "{y}", and "{z}".')
-        self.base = base
-        self.loadfunc = loadfunc
+        self._base = base
+        self._loadfunc = loadfunc
         if loadfunc is _loadfunc:
             warnings.warn("XYZGeneric: default loading function is set.")
-        self.savefunc = savefunc
+        self._savefunc = savefunc
         if savefunc is _savefunc:
             warnings.warn("XYZGeneric: default saving function is set.")
 
     def __repr__(self):
         # ref: https://ja.pymotw.com/2/pprint/
-        return f"<{repr(self.__class__)}: base={repr(self.base)}, {repr(self.loadfunc == _loadfunc)}>"
+        return f"<{repr(self.__class__)}: base={repr(self._base)}, {repr(self._loadfunc == _loadfunc)}>"
 
 class XYZHttpGeneric(XYZGeneric):
     def __init__(self, **kwargs):
