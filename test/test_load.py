@@ -9,7 +9,7 @@ pp.pprint(test)
 test_http = XYZTileFile(base="http://www.mockup.net/tile/{z}/{x}/{y}.png")
 pp.pprint(test_http)
 
-test_sample = XYZTileFile(base="./tile/{z}/{x}/{y}.sample")
+test_sample = XYZTileFile(base="./tile/{z}/{x}/{y}.xyzsample")
 pp.pprint(test_sample)
 
 #print(globals())

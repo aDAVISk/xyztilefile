@@ -1,5 +1,6 @@
 from .xyzgeneric import *
 
+# Default functions for loading and saving
 _loadfunc = lambda x : x
 
 _savefunc = lambda x : x
@@ -13,5 +14,6 @@ class XYZHttpSample(XYZHttpGeneric):
         super().__init__(base=base, loadfunc=loadfunc, savefunc=savefunc)
 
 
-xyztiletype = {"sample":XYZSample}
-xyzhttptype = {"sample":XYZHttpSample}
+# {"type string from the extension" : Class} 
+xyztiletype = {"xyzsample":XYZSample}
+xyzhttptype = {"xyzsample":XYZHttpSample}

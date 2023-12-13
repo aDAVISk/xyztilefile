@@ -1,4 +1,5 @@
 
+# Default functions for loading and saving
 _loadfunc = lambda x : x
 
 _savefunc = lambda x : x
@@ -17,3 +18,7 @@ class XYZHttpGeneric(XYZGeneric):
     def __init__(self, **kwargs):
         super().__init__(kwargs)
         #print(self.data)
+
+# {"type string from the extension" : Class}
+xyztiletype = {"xyzgeneric":XYZGeneric}
+xyzhttptype = {"xyzgeneric":XYZHttpGeneric}
