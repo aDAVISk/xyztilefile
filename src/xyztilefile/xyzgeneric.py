@@ -29,5 +29,6 @@ class XYZHttpGeneric(XYZGeneric):
         #print(self.data)
 
 # {"type string from the extension" : Class}
-xyztiletype = {"xyzgeneric":XYZGeneric}
-xyzhttptype = {"xyzgeneric":XYZHttpGeneric}
+# These variables are not used for Generic classes
+#xyztiletype = {"xyzgeneric":XYZGeneric}
+#xyzhttptype = {"xyzgeneric":XYZHttpGeneric}
