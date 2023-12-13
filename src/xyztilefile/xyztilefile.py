@@ -29,7 +29,7 @@ for module in os.listdir(os.path.dirname(__file__)):
         or module == "xyzgeneric.py" or module[-3:] != '.py':
         continue
     #print(f"Importing {module}")
-    exec("from .%s import *" % module[:-3])
+    exec(f"from .{module[:-3]} import *" )
     XYZTileFile.typeclass.update(xyztiletype)
     XYZHttpTileFile.typeclass.update(xyzhttptype)
 del module
