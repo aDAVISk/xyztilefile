@@ -3,19 +3,25 @@ from .xyzgeneric import *
 
 class XYZTileFile:
     typeclass = {}
-    def __new__(cls, type=None):
-        if type == "http":
-            return XYZHttpTileFile()
-        if type in cls.typeclass:
-            return cls.typeclass[type]()
-        return XYZGeneric()
+    def __new__(cls, base=None, **kwargs):
+        if isinstance(base, str):
+            if base[0:7] == "http://":
+                return XYZHttpTileFile(base=base, **kwargs)
+            type = os.path.splitext(base)[-1][1:]
+            if type in cls.typeclass:
+                return cls.typeclass[type](base=base, **kwargs)
+        return XYZGeneric(base=base, **kwargs)
 
 class XYZHttpTileFile(XYZTileFile):
     typeclass = {}
-    def __new__(cls, type=None):
-        if type in cls.typeclass:
-            return cls.typeclass[type]()
-        return XYZHttpGeneric()
+    def __new__(cls, base=None, **kwargs):
+        if isinstance(base, str):
+            if base[0:7] != "http://":
+                return XYZTileFile(base=base, **kwargs)
+            type = os.path.splitext(base)[-1][1:]
+            if type in cls.typeclass:
+                return cls.typeclass[type](base=base, **kwargs)
+        return XYZHttpGeneric(base=base, **kwargs)
 
 
 for module in os.listdir(os.path.dirname(__file__)):

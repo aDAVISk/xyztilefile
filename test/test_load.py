@@ -1,16 +1,15 @@
 from xyztilefile import *
 import pprint
 
-test = XYZTileFile()
 pp = pprint.PrettyPrinter(indent=3)
-pp.pprint(test)
-test.data = 100
+
+test = XYZTileFile(base="./test/{z}/{x}/{y}.png")
 pp.pprint(test)
 
-test_http = XYZTileFile(type="http")
+test_http = XYZTileFile(base="http://www.mockup.net/tile/{z}/{x}/{y}.png")
 pp.pprint(test_http)
 
-test_sample = XYZTileFile(type="sample2")
+test_sample = XYZTileFile(base="./tile/{z}/{x}/{y}.sample")
 pp.pprint(test_sample)
 
-print(globals())
+#print(globals())
