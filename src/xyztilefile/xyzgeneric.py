@@ -52,6 +52,9 @@ class XYZHttpGeneric(XYZGeneric):
         super().__init__(**kwargs)
         #print(self.data)
 
+    def set(self, *args, **kwargs):
+        raise NotImplementedError("set is nulled for http tile class.")
+
     def save(self, *args, **kwargs):
         raise NotImplementedError("save is nulled for http tile class.")
 
