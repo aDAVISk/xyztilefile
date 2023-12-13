@@ -62,6 +62,7 @@ class XYZHttpGeneric(XYZGeneric):
         if key not in self._base:
             # get response with key, then pass response to _parsefunc.
             self._data[key] = self._parsefunc(key)
+        #copy.deepcopy した方がいい？
         return self._data[key]
 
 
