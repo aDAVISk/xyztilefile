@@ -12,4 +12,14 @@ pp.pprint(test_http)
 test_sample = XYZTileFile(base="./tile/{z}/{x}/{y}.xyzsample")
 pp.pprint(test_sample)
 
+try:
+    test_error = XYZTileFile()
+except TypeError as e:
+    print(f"TypeError is detected as expected: {e}")
+
+try:
+    test_error = XYZTileFile(base="http://google.com")
+except ValueError as e:
+    print(f"ValueError is detected as expected: {e}")
+
 #print(globals())
