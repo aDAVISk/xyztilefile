@@ -1,9 +1,9 @@
 from .xyzgeneric import *
 
 # Default functions for loading and saving
-_loadfunc = lambda x : x
+_loadfunc = lambda filename : filename
 
-_savefunc = lambda x : x
+_savefunc = lambda filename, val : print(filename, val)
 
 class XYZSample2(XYZGeneric):
     def __init__(self, base, loadfunc=_loadfunc, savefunc=_savefunc):

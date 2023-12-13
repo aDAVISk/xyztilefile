@@ -1,9 +1,9 @@
 import warnings
 
 # Default functions for loading and saving
-_loadfunc = lambda x : x
+_loadfunc = lambda filename : filename
 
-_savefunc = lambda x : x
+_savefunc = lambda filename, val : print(filename, val)
 
 class XYZGeneric:
     def __init__(self, base: str, loadfunc=_loadfunc, savefunc=_savefunc):
@@ -18,15 +18,46 @@ class XYZGeneric:
         self._savefunc = savefunc
         if savefunc is _savefunc:
             warnings.warn("XYZGeneric: default saving function is set.")
+        self._data = {}
 
     def __repr__(self):
         # ref: https://ja.pymotw.com/2/pprint/
         return f"<{repr(self.__class__)}: base={repr(self._base)}>"
 
+    def get(self, x:int, y:int, z:int):
+        key = self._base.format(x=x,y=y,z=z)
+        if key not in self._base:
+            self._data[key] = self._loadfunc(key)
+        return self._data[key]
+
+    def set(self, x:int, y:int, z:int, val):
+        key = self._base.format(x=x,y=y,z=z)
+        self._data[key] = val
+        return self
+
+    def save(self, x:int, y:int, z:int):
+        key = self._base.format(x=x,y=y,z=z)
+        if key not in self._base:
+            return False
+        self._savefunc(key, self._data[key])
+        return True
+
+    def save_all(self):
+        for key in self._data:
+            self._savefunc(key, self._data[key])
+        return True
+
 class XYZHttpGeneric(XYZGeneric):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         #print(self.data)
+
+    def save(self, *args, **kwargs):
+        raise NotImplementedError("save is nulled for http tile class.")
+
+    def save_all(self, *args, **kwargs):
+        raise NotImplementedError("save_all is nulled for http tile class.")
+
 
 # {"type string from the extension" : Class}
 # These variables are not used for Generic classes
