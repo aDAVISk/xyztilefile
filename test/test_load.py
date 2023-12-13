@@ -12,6 +12,7 @@ try:
     pp.pprint(test_http.save())
 except NotImplementedError as e:
     print(f"NotImplementedError is detected as expected: {e}")
+
 test_sample = XYZTileFile("./tile/{z}/{x}/{y}.xyzsample")
 pp.pprint(test_sample)
 
