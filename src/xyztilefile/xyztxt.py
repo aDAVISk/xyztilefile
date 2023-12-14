@@ -1,9 +1,9 @@
 from .xyzgeneric import *
 
 # Default functions for loading and saving files
-_loadfunc = lambda filename : "".join([ff for ff in open(filename, "r")])[:-1]
+_loadfunc = lambda filename : "".join([ff for ff in open(filename, "r")]).rstrip()
 
-_savefunc = lambda filename, val : print(val, end="", file=open(filename,"w"))
+_savefunc = lambda filename, val : print(val, file=open(filename,"w"))
 
 _parsefunc = lambda response : response.text
 
