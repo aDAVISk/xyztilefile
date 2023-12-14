@@ -8,7 +8,7 @@ _savefunc = lambda filename, val : print(filename, val)
 _parsefunc = lambda response : print(response)
 
 class XYZGeneric:
-    def __init__(self, base: str, loadfunc=_loadfunc, savefunc=_savefunc):
+    def __init__(self, base: str, loadfunc=_loadfunc, savefunc=_savefunc, cache = {}):
         if not isinstance(base, str):
             raise TypeError("base must be string.")
         if not ("{x}" in base and "{y}" in base and "{z}" in base):
@@ -20,33 +20,41 @@ class XYZGeneric:
         self._savefunc = savefunc
         if savefunc is _savefunc:
             warnings.warn("XYZGeneric: default saving function is set.")
-        self._data = {}
+        if not isinstance(cache, dict):
+            raise TypeError("chache must be dict.")
+        if len(cache) > 0:
+            warnings.warn("XYZGeneric: non-empty shared chache is set.")
+        self._cache = cache
 
     def __repr__(self):
         # ref: https://ja.pymotw.com/2/pprint/
         return f"<{repr(self.__class__)}: base={repr(self._base)}>"
 
+    def has(self, x:int, y:int, z:int):
+        key = self._base.format(x=x,y=y,z=z)
+        return key in self._base
+
     def get(self, x:int, y:int, z:int):
         key = self._base.format(x=x,y=y,z=z)
         if key not in self._base:
-            self._data[key] = self._loadfunc(key)
-        return self._data[key]
+            self._cache[key] = self._loadfunc(key)
+        return self._cache[key]
 
     def set(self, x:int, y:int, z:int, val):
         key = self._base.format(x=x,y=y,z=z)
-        self._data[key] = val
+        self._cache[key] = val
         return self
 
     def save(self, x:int, y:int, z:int):
         key = self._base.format(x=x,y=y,z=z)
         if key not in self._base:
             return False
-        self._savefunc(key, self._data[key])
+        self._savefunc(key, self._cache[key])
         return True
 
     def save_all(self):
-        for key in self._data:
-            self._savefunc(key, self._data[key])
+        for key in self._cache:
+            self._savefunc(key, self._cache[key])
         return True
 
 class XYZHttpGeneric(XYZGeneric):
@@ -61,9 +69,10 @@ class XYZHttpGeneric(XYZGeneric):
         key = self._base.format(x=x,y=y,z=z)
         if key not in self._base:
             # get response with key, then pass response to _parsefunc.
-            self._data[key] = self._parsefunc(key)
+            # raise error if not successfully retrieve the data
+            self._cache[key] = self._parsefunc(key)
         #copy.deepcopy した方がいい？
-        return self._data[key]
+        return self._cache[key]
 
 
     def set(self, *args, **kwargs):
