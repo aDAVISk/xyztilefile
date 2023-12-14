@@ -1,5 +1,6 @@
 import os
 import math
+import requests
 from .xyzgeneric import *
 
 __LATLIMIT = 85.0511
@@ -51,6 +52,18 @@ class XYZTileFile:
         return XYZGeneric(base=base, **kwargs)
 
 class XYZHttpTileFile(XYZTileFile):
+    """Factory class of XYZHttpFiletype instances.
+
+    An instance of the appropriate XYZHttpFiletype class will be returned by judging the extension of the given base string. This class assumes that the base starts with "http://".
+
+    Args:
+        base (string): base url or file path of xyz file system. This must contain keywords "{x}", "{y}", and "{z}".
+
+    Optional Keyargs:
+        loadfunc (method): (optional) user-defined loading function.
+        savefunc (method): (optional) user-defined saving function.
+
+    """
     typeclass = {}
     def __new__(cls, base: str, **kwargs):
         if isinstance(base, str):

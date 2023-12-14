@@ -1,6 +1,7 @@
 from xyztilefile import *
 import pprint
 
+
 pp = pprint.PrettyPrinter(indent=3)
 
 pp.pprint(calc_xyz_from_lonlat(135.0,35.0,15))
@@ -32,8 +33,10 @@ except ValueError as e:
     print(f"ValueError is detected as expected: {e}")
 
 
+xyz = calc_xyz_from_lonlat
+
 test_main = XYZTileFile("./tile_sample/{z}/{x}/{y}.txt")
-txt = test_main.get(x,y,z)
+txt = test_main.get(*xyz(135.0,35.0,15))
 pp.pprint(txt)
-pp.pprint(test_main.set(x,y,z,txt+"\nNew line is added"))
+pp.pprint(test_main.set(x,y,z,txt))#+"\nNew line is added"))
 pp.pprint(test_main.save(x,y,z))

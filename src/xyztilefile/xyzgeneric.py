@@ -5,7 +5,7 @@ _loadfunc = lambda filename : filename
 
 _savefunc = lambda filename, val : print(filename, val)
 
-_parsefunc = lambda response : print(response)
+_parsefunc = lambda response : response
 
 class XYZGeneric:
     def __init__(self, base: str, loadfunc=_loadfunc, savefunc=_savefunc, cache = None):
