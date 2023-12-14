@@ -21,13 +21,7 @@ class XYZGeneric:
         self._savefunc = savefunc
         if savefunc is _savefunc:
             warnings.warn("XYZGeneric: default saving function is set.")
-        if cache is None:
-            cache = {}
-        if not isinstance(cache, dict):
-            raise TypeError("chache must be dict.")
-        if len(cache) > 0:
-            warnings.warn("XYZGeneric: non-empty shared chache is set.")
-        self._cache = cache
+        self.clc(cache=cache)
 
     def __repr__(self):
         # ref: https://ja.pymotw.com/2/pprint/
@@ -59,6 +53,10 @@ class XYZGeneric:
         self._savefunc(key, self._cache[key])
         return True
 
+    def set_save(self, x:int, y:int, z:int, val):
+        self.set(self, x:int, y:int, z:int, val)
+        return self.save(self, x:int, y:int, z:int)
+
     def save_all(self):
         for key in self._cache:
             dir = os.path.dirname(key)
@@ -66,6 +64,15 @@ class XYZGeneric:
                 os.makedirs(dir)
             self._savefunc(key, self._cache[key])
         return True
+
+    def clc(cache=None):
+        if cache is None:
+            cache = {}
+        if not isinstance(cache, dict):
+            raise TypeError("chache must be dict.")
+        if len(cache) > 0:
+            warnings.warn("XYZGeneric: non-empty shared chache is set.")
+        self._cache = cache
 
 class XYZHttpGeneric(XYZGeneric):
     def __init__(self, base, parsefunc=_parsefunc, loadfunc=None, savefunc=None, **kwargs):

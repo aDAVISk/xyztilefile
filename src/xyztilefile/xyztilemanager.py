@@ -23,6 +23,6 @@ class XYZTileManager:
             return self._lcl.get(x,y,z)
         except OSError:
             pass
-        res = self._src.get(x,y,z)
-        self.__save(x,y,z)
+        res = self._convfunc(self._src.get(x,y,z))
+        self._lcl.set_save(x,y,z, res)
         return res
