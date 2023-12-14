@@ -8,7 +8,7 @@ _savefunc = lambda filename, val : print(filename, val)
 _parsefunc = lambda response : print(response)
 
 class XYZGeneric:
-    def __init__(self, base: str, loadfunc=_loadfunc, savefunc=_savefunc, cache = {}):
+    def __init__(self, base: str, loadfunc=_loadfunc, savefunc=_savefunc, cache = None):
         if not isinstance(base, str):
             raise TypeError("base must be string.")
         if not ("{x}" in base and "{y}" in base and "{z}" in base):
@@ -20,6 +20,8 @@ class XYZGeneric:
         self._savefunc = savefunc
         if savefunc is _savefunc:
             warnings.warn("XYZGeneric: default saving function is set.")
+        if cache is None:
+            cache = {}
         if not isinstance(cache, dict):
             raise TypeError("chache must be dict.")
         if len(cache) > 0:
@@ -28,7 +30,7 @@ class XYZGeneric:
 
     def __repr__(self):
         # ref: https://ja.pymotw.com/2/pprint/
-        return f"<{repr(self.__class__)}: base={repr(self._base)}>"
+        return f"<{repr(self.__class__)}: base={repr(self._base)}, cache={repr(self._cache)}>"
 
     def has(self, x:int, y:int, z:int):
         key = self._base.format(x=x,y=y,z=z)
@@ -47,7 +49,8 @@ class XYZGeneric:
 
     def save(self, x:int, y:int, z:int):
         key = self._base.format(x=x,y=y,z=z)
-        if key not in self._base:
+        print(key)
+        if key not in self._cache:
             return False
         self._savefunc(key, self._cache[key])
         return True

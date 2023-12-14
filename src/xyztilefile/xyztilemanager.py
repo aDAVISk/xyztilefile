@@ -7,6 +7,7 @@ class XYZTileManager:
     The source can be local or online.
     Firstly, this class try to load from local cache file.
     If there is no cache file, this class retrieves data from the source.
+    The retrieve data is automatically saved to local cache file.
 
     """
     def __init__(self, srcbase:str, cachebase:str):
@@ -17,7 +18,7 @@ class XYZTileManager:
     def get(self, x:int, y:int, z:int):
         try:
             return self.__lcl.get(x,y,z)
-        except OSERROR:
+        except OSError:
             pass
         res = self.__src.get(x,y,z)
         self.__save(x,y,z)

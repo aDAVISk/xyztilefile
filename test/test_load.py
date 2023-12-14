@@ -32,5 +32,8 @@ except ValueError as e:
     print(f"ValueError is detected as expected: {e}")
 
 
-test_main = XYZTileFile("~/Documents/tile_sample/{z}/{x}/{y}.txt")
-pp.pprint(test_main.get(x,y,z))
+test_main = XYZTileFile("./tile_sample/{z}/{x}/{y}.txt")
+txt = test_main.get(x,y,z)
+pp.pprint(txt)
+pp.pprint(test_main.set(x,y,z,txt+"\nNew line is added"))
+pp.pprint(test_main.save(x,y,z))
