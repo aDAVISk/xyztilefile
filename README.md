@@ -1,5 +1,10 @@
 # xyztilefile
 
+### cautions
+- HTTP support is under development.
+- XYZTileManager has been implemented, but it is a prototype.
+
+### Sample
 Basic usage sample.
 ```Python
 from xyztilefile import *
