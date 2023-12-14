@@ -1,4 +1,5 @@
 import warnings
+import os
 
 # Default functions for loading and saving files
 _loadfunc = lambda filename : filename
@@ -52,11 +53,17 @@ class XYZGeneric:
         print(key)
         if key not in self._cache:
             return False
+        dir = os.path.dirname(key)
+        if not os.path.exists(dir):
+            os.makedirs(dir)
         self._savefunc(key, self._cache[key])
         return True
 
     def save_all(self):
         for key in self._cache:
+            dir = os.path.dirname(key)
+            if not os.path.exists(dir):
+                os.makedirs(dir)
             self._savefunc(key, self._cache[key])
         return True
 
