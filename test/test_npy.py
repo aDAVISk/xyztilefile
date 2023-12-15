@@ -28,3 +28,11 @@ print("Load the saved array")
 ar2 = test.get(*xyz(135.0,35.0,15))
 pp.pprint(ar2)
 pp.pprint(test)
+
+print()
+print("Testing HTTP npy")
+test_http = XYZTileFile("https://raw.githubusercontent.com/aDAVISk/xyztilefile/dev/tile_sample/{z}/{x}/{y}.npy")
+ar3 = test_http.get(*xyz(135.0,35.0,15))
+pp.pprint(ar3)
+#ar3[0,0] = 100
+pp.pprint(test_http)
