@@ -22,7 +22,7 @@ please check ./test/test_load.py for more sample codes
 ### currently supported file formats
 - txt : encoding must be UTF-8 
 - json : encoding must be UTF-8
-- png : with skit-image (not tested yet)
-- npy : with numpy (not tested yet)
+- png : with skit-image (tested with `./test/test_png.py`)
+- npy : with numpy (tested with `./test/test_npy.py`)
 
 - (generic : this format is basic but your customization is needed.)
