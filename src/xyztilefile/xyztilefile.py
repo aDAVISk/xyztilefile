@@ -62,7 +62,7 @@ class XYZTileFile:
     typeclass = {"generic":XYZGeneric}
     def __new__(cls, base: str, type=None, **kwargs):
         if isinstance(base, str):
-            if base[0:7] == "http://":
+            if base[0:7] == "http://" or base[0:8] == "https://":
                 return XYZHttpTileFile(base, **kwargs)
             if type in cls.typeclass: # try user-specified type
                 return cls.typeclass[type](base, **kwargs)
@@ -87,7 +87,7 @@ class XYZHttpTileFile(XYZTileFile):
     typeclass = {"generic":XYZHttpGeneric}
     def __new__(cls, base: str, type=None, **kwargs):
         if isinstance(base, str):
-            if base[0:7] != "http://":
+            if base[0:7] != "http://" and base[0:8] != "https://":
                 return XYZTileFile(base, **kwargs)
             if type in cls.typeclass:
                 return cls.typeclass[type](base, **kwargs)

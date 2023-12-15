@@ -1,5 +1,7 @@
 import warnings
 import os
+import io
+import requests
 import copy
 
 # Default functions for loading and saving files
@@ -82,7 +84,7 @@ class XYZHttpGeneric(XYZGeneric):
         key = self._base.format(x=x,y=y,z=z)
         if key not in self._base:
             res = requests.get(key)
-            if res.status_cod != 200:
+            if res.status_code != 200:
                 res.raise_for_status()
                 #raise OSError(f"Failed to fetch {key}")
             self._cache[key] = self._loadfunc(io.BytesIO(res.content))
