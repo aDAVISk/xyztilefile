@@ -8,7 +8,7 @@ _loadfunc = lambda byteio : byteio.read()
 _savefunc = lambda filename, val : print(filename, val)
 
 class XYZGeneric:
-    def __init__(self, base: str, loadfunc=_loadfunc, savefunc=_savefunc, cache = None):
+    def __init__(self, base: str, loadfunc=_loadfunc, savefunc=_savefunc, cache=None):
         if not isinstance(base, str):
             raise TypeError("base must be string.")
         if not ("{x}" in base and "{y}" in base and "{z}" in base):
