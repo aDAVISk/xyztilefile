@@ -29,7 +29,7 @@ def calc_xyz_from_lonlat(lon: float, lat: float, z: int):
     return (x, y, z)
 
 def calc_lonlat_from_xyz(x:int, y:int, z:int):
-    """Calculates (lon, lat) of the north west corner of the tile
+    """Calculates (lon, lat) degrees of the north west corner of the tile
     """
     n = 2.0 ** z
     lon_deg = x / n * 360.0 - 180.0
