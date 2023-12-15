@@ -59,7 +59,7 @@ class XYZTileFile:
         savefunc (method): (optional) user-defined saving function.
 
     """
-    typeclass = {}
+    typeclass = {"generic":XYZGeneric}
     def __new__(cls, base: str, type=None, **kwargs):
         if isinstance(base, str):
             if base[0:7] == "http://":
@@ -84,7 +84,7 @@ class XYZHttpTileFile(XYZTileFile):
         savefunc (method): (optional) user-defined saving function.
 
     """
-    typeclass = {}
+    typeclass = {"generic":XYZHttpGeneric}
     def __new__(cls, base: str, type=None, **kwargs):
         if isinstance(base, str):
             if base[0:7] != "http://":
