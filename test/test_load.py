@@ -21,6 +21,10 @@ except NotImplementedError as e:
 
 test_sample = XYZTileFile("./tile/{z}/{x}/{y}.xyzsample")
 pp.pprint(test_sample)
+try:
+    data = test_sample.get(x,y,z)
+except OSError as e:
+    print(f"OSError is detected as expected: {e}")
 
 try:
     test_error = XYZTileFile(None)
@@ -50,3 +54,9 @@ pp.pprint(data)
 data.append({"id":3, "txt":f"new line as {datetime.now()}"})
 pp.pprint(test_json.set(x-1,y,z,data))
 pp.pprint(test_json.save_all())
+
+test_httptxt = XYZTileFile("https://raw.githubusercontent.com/aDAVISk/xyztilefile/main/tile_sample/{z}/{x}/{y}.txt")
+pp.pprint(test_httptxt)
+txt = test_httptxt.get(*xyz(135.0,35.0,15))
+pp.pprint(txt)
+pp.pprint(test_httptxt)

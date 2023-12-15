@@ -1,7 +1,8 @@
+import io
 from .xyzgeneric import *
 
 # Default functions for loading and saving files
-_loadfunc = lambda byteio : byteio.read()
+_loadfunc = lambda byteio : byteio.read().decode(encoding="utf-8")
 
 _savefunc = lambda filename, val : print(val, file=open(filename,"w"))
 
