@@ -19,9 +19,10 @@ test_txt.save(x,y,z)
 ```
 please check ./test/test_load.py for more sample codes
 
-### currently supported file format 
-- generic : this format is basic but your customization is needed.
+### currently supported file formats
 - txt : encoding must be UTF-8 
 - json : encoding must be UTF-8
 - png : with skit-image (not tested yet)
 - npy : with numpy (not tested yet)
+
+- (generic : this format is basic but your customization is needed.)
