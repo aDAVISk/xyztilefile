@@ -23,3 +23,5 @@ please check ./test/test_load.py for more sample codes
 - generic : this format is basic but your customization is needed.
 - txt : encoding must be UTF-8 
 - json : encoding must be UTF-8
+- png : with skit-image (not tested yet)
+- npy : with numpy (not tested yet)
