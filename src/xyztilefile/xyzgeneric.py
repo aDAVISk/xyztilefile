@@ -83,7 +83,8 @@ class XYZHttpGeneric(XYZGeneric):
         if key not in self._base:
             res = requests.get(key)
             if res.status_cod != 200:
-                raise OSError(f"Failed to fetch {key}")
+                res.raise_for_status()
+                #raise OSError(f"Failed to fetch {key}")
             self._cache[key] = self._loadfunc(io.BytesIO(res.content))
         #copy.deepcopy した方がいい？
         return self._cache[key]

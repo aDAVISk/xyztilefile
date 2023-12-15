@@ -21,6 +21,10 @@ except NotImplementedError as e:
 
 test_sample = XYZTileFile("./tile/{z}/{x}/{y}.xyzsample")
 pp.pprint(test_sample)
+try:
+    data = test_sample.get(x,y,z)
+except OSError as e:
+    print(f"OSError is detected as expected: {e}")
 
 try:
     test_error = XYZTileFile(None)
