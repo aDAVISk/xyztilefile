@@ -28,6 +28,24 @@ def calc_xyz_from_lonlat(lon: float, lat: float, z: int):
         /(2.0*__YZERO) * n )
     return (x, y, z)
 
+def calc_lonlat_from_xyz(x:int, y:int, z:int):
+    """Calculates (lon, lat) of the north west corner of the tile
+    """
+    n = 2.0 ** z
+    lon_deg = x / n * 360.0 - 180.0
+    ycorr = __YZERO - (y * __YZERO * 2.0 / n)
+    lat_rad = math.asin(math.tanh(ycorr))
+    lat_deg = math.degrees(lat_rad)
+    return lon_deg, lat_deg
+
+
+def calc_bounds_xyz(x:int, y:int, z:int):
+    """Calculates the bounds (west, south, east, north) of the tile
+    """
+    west, north = calc_lonlat_from_xyz(x, y, z)
+    east, south = calc_lonlat_from_xyz(x+1, y+1, z)
+    return west, south, east, north
+
 class XYZTileFile:
     """Factory class of XYZFiletype instances.
 
@@ -46,7 +64,7 @@ class XYZTileFile:
         if isinstance(base, str):
             if base[0:7] == "http://":
                 return XYZHttpTileFile(base, **kwargs)
-            if type in cls.typeclass: # try user-specified type  
+            if type in cls.typeclass: # try user-specified type
                 return cls.typeclass[type](base, **kwargs)
             type = os.path.splitext(base)[-1][1:]
             if type in cls.typeclass:
