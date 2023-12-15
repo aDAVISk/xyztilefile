@@ -1,21 +1,21 @@
 import json
-import skimage
+from skimage import io as skiio
 from .xyzgeneric import *
 
 # Default functions for loading and saving files
-_loadfunc = lambda byteio : skimage.io.imread(byteio)
+_loadfunc = lambda byteio : skiio.imread(byteio)
 
-_savefunc = lambda filename, val : skimage.io.imsave(filename, val)
+_savefunc = lambda filename, val : skiio.imsave(filename, val, plugin='imageio')
 
-class XYZJson(XYZGeneric):
+class XYZPng(XYZGeneric):
     def __init__(self, base, loadfunc=_loadfunc, savefunc=_savefunc, **kwargs):
         super().__init__(base, loadfunc=loadfunc, savefunc=savefunc, **kwargs)
 
-class XYZHttpJson(XYZHttpGeneric):
+class XYZHttpPng(XYZHttpGeneric):
     def __init__(self, base, loadfunc=_loadfunc, **kwargs):
         super().__init__(base, loadfunc=_loadfunc, **kwargs)
 
 
 # {"type string from the extension" : Class}
-xyztiletype = {"json":XYZJson}
-xyzhttptype = {"json":XYZHttpJson}
+xyztiletype = {"png":XYZPng}
+xyzhttptype = {"png":XYZHttpPng}

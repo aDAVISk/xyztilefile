@@ -17,6 +17,7 @@ setup(
     license='MIT',  # ライセンス
     package_dir={'': 'src'},
     packages=setuptools.find_packages(where='src'),
+    install_requires=['numpy', 'sckit-image'],
     long_description=long_description,
     long_description_content_type='text/markdown',
     keywords='xyztilefile xyz-tile xyztile',

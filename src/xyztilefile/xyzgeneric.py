@@ -1,5 +1,6 @@
 import warnings
 import os
+import copy
 
 # Default functions for loading and saving files
 _loadfunc = lambda byteio : byteio.read()
@@ -34,7 +35,7 @@ class XYZGeneric:
         if key not in self._base:
             with open(key, "rb") as ifile:
                 self._cache[key] = self._loadfunc(ifile)
-        return self._cache[key]
+        return copy.deepcopy(self._cache[key])
 
     def set(self, x:int, y:int, z:int, val):
         key = self._base.format(x=x,y=y,z=z)
