@@ -55,8 +55,24 @@ data.append({"id":3, "txt":f"new line as {datetime.now()}"})
 pp.pprint(test_json.set(x-1,y,z,data))
 pp.pprint(test_json.save_all())
 
-test_httptxt = XYZTileFile("https://raw.githubusercontent.com/aDAVISk/xyztilefile/main/tile_sample/{z}/{x}/{y}.txt")
+
+print()
+print("Testing HTTP Text")
+test_httptxt = XYZTileFile("https://raw.githubusercontent.com/aDAVISk/xyztilefile/dev/tile_sample/{z}/{x}/{y}.txt")
 pp.pprint(test_httptxt)
 txt = test_httptxt.get(*xyz(135.0,35.0,15))
 pp.pprint(txt)
+print(txt)
 pp.pprint(test_httptxt)
+
+try:
+    txt = test_httptxt.get(*xyz(0,0,15))
+except OSError as e:
+    print(f"OSError is detected as expected: {e}")
+
+print()
+print("Testing HTTP JSON")
+test_httpjson = XYZTileFile("https://raw.githubusercontent.com/aDAVISk/xyztilefile/dev/tile_sample/{z}/{x}/{y}.json")
+pp.pprint(test_json)
+data = test_json.get(*xyz(135.0,35.0,15))
+pp.pprint(data)

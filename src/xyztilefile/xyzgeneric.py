@@ -89,7 +89,7 @@ class XYZHttpGeneric(XYZGeneric):
                 #raise OSError(f"Failed to fetch {key}")
             self._cache[key] = self._loadfunc(io.BytesIO(res.content))
         #copy.deepcopy した方がいい？
-        return self._cache[key]
+        return copy.deepcopy(self._cache[key])
 
 
     def set(self, *args, **kwargs):
