@@ -85,10 +85,12 @@ class XYZHttpTileFile(XYZTileFile):
 
     """
     typeclass = {}
-    def __new__(cls, base: str, **kwargs):
+    def __new__(cls, base: str, type=None, **kwargs):
         if isinstance(base, str):
             if base[0:7] != "http://":
                 return XYZTileFile(base, **kwargs)
+            if type in cls.typeclass:
+                return cls.typeclass[type](base, **kwargs)
             type = os.path.splitext(base)[-1][1:]
             if type in cls.typeclass:
                 return cls.typeclass[type](base, **kwargs)
