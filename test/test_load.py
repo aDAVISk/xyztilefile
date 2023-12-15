@@ -1,6 +1,6 @@
 from xyztilefile import *
 import pprint
-
+from datetime import  datetime
 
 pp = pprint.PrettyPrinter(indent=3)
 
@@ -10,13 +10,13 @@ x, y, z = calc_xyz_from_lonlat(135.0,35.0,15)
 test= XYZTileFile("./test/{z}/{x}/{y}.png")
 pp.pprint(test)
 
-test_http = XYZTileFile("http://www.mockup.net/tile/{z}/{x}/{y}.png")
+test_http = XYZTileFile("http://localhost:8080/tile/{z}/{x}/{y}.png")
 pp.pprint(test_http)
 try:
     pp.pprint(test_http.save())
 except NotImplementedError as e:
     print(f"NotImplementedError is detected as expected: {e}")
-test_http.get(x,y,z)
+#test_http.get(x,y,z)
 
 
 test_sample = XYZTileFile("./tile/{z}/{x}/{y}.xyzsample")
@@ -47,7 +47,6 @@ test_json = XYZTileFile("./tile_sample/{z}/{x}/{y}.json")
 pp.pprint(test_json)
 data = test_json.get(*xyz(135.0,35.0,15))
 pp.pprint(data)
-data.append({"id":3, "txt":"new line"})
-pp.pprint(test_json.set(x,y,z,data))
+data.append({"id":3, "txt":f"new line as {datetime.now()}"})
 pp.pprint(test_json.set(x-1,y,z,data))
 pp.pprint(test_json.save_all())

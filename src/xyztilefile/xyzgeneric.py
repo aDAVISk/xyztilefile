@@ -2,11 +2,9 @@ import warnings
 import os
 
 # Default functions for loading and saving files
-_loadfunc = lambda filename : filename
+_loadfunc = lambda byteio : byteio.read()
 
 _savefunc = lambda filename, val : print(filename, val)
-
-_parsefunc = lambda response : response
 
 class XYZGeneric:
     def __init__(self, base: str, loadfunc=_loadfunc, savefunc=_savefunc, cache = None):
@@ -34,7 +32,8 @@ class XYZGeneric:
     def get(self, x:int, y:int, z:int):
         key = self._base.format(x=x,y=y,z=z)
         if key not in self._base:
-            self._cache[key] = self._loadfunc(key)
+            with open(key, "rb") as ifile:
+                self._cache[key] = self._loadfunc(ifile)
         return self._cache[key]
 
     def set(self, x:int, y:int, z:int, val):
@@ -54,8 +53,8 @@ class XYZGeneric:
         return True
 
     def set_save(self, x:int, y:int, z:int, val):
-        self.set(self, x:int, y:int, z:int, val)
-        return self.save(self, x:int, y:int, z:int)
+        self.set(self, x, y, z, val)
+        return self.save(self, x, y, z)
 
     def save_all(self):
         for key in self._cache:
@@ -65,7 +64,7 @@ class XYZGeneric:
             self._savefunc(key, self._cache[key])
         return True
 
-    def clc(cache=None):
+    def clc(self, cache=None):
         if cache is None:
             cache = {}
         if not isinstance(cache, dict):
@@ -75,19 +74,16 @@ class XYZGeneric:
         self._cache = cache
 
 class XYZHttpGeneric(XYZGeneric):
-    def __init__(self, base, parsefunc=_parsefunc, loadfunc=None, savefunc=None, **kwargs):
-        super().__init__(base, loadfunc=loadfunc, savefunc=savefunc, **kwargs)
-        self._parsefunc = parsefunc
-        if parsefunc is _parsefunc:
-            warnings.warn("XYZHttpGeneric: default parsing function is set.")
-        #print(self.data)
+    def __init__(self, base, loadfunc=None, **kwargs):
+        super().__init__(base, loadfunc=loadfunc, **kwargs)
 
     def get(self, x:int, y:int, z:int):
         key = self._base.format(x=x,y=y,z=z)
         if key not in self._base:
-            # get response with key, then pass response to _parsefunc.
-            # raise error if not successfully retrieve the data
-            self._cache[key] = self._parsefunc(key)
+            res = requests.get(key)
+            if res.status_cod != 200:
+                raise OSError(f"Failed to fetch {key}")
+            self._cache[key] = self._loadfunc(io.BytesIO(res.content))
         #copy.deepcopy した方がいい？
         return self._cache[key]
 
