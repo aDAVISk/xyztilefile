@@ -1,7 +1,6 @@
 # xyztilefile
 
 ### cautions
-- HTTP support has been implemented but not tested yet.
 - XYZTileManager has been implemented, but it is a prototype.
 
 ### Sample
