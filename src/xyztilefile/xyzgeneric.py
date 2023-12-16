@@ -16,6 +16,7 @@ class XYZGeneric:
         if not ("{x}" in base and "{y}" in base and "{z}" in base):
             raise ValueError('base must contain "{x}", "{y}", and "{z}".')
         self._base = base
+        self._keyfmt = "{z}/{x}/{y}"
         self._loadfunc = loadfunc
         if loadfunc is _loadfunc:
             warnings.warn("XYZGeneric: default loading function is set.")
@@ -29,30 +30,32 @@ class XYZGeneric:
         return f"<{repr(self.__class__)}: base={repr(self._base)}, cache={repr(self._cache)}>"
 
     def has(self, x:int, y:int, z:int):
-        key = self._base.format(x=x,y=y,z=z)
+        key = self._keyfmt.format(x=x,y=y,z=z)
         return key in self._base
 
     def get(self, x:int, y:int, z:int):
-        key = self._base.format(x=x,y=y,z=z)
+        key = self._keyfmt.format(x=x,y=y,z=z)
         if key not in self._base:
-            with open(key, "rb") as ifile:
+            with open(self._base.format(x=x,y=y,z=z), "rb") as ifile:
                 self._cache[key] = self._loadfunc(ifile)
         return copy.deepcopy(self._cache[key])
 
     def set(self, x:int, y:int, z:int, val):
-        key = self._base.format(x=x,y=y,z=z)
+        key = self._keyfmt.format(x=x,y=y,z=z)
         self._cache[key] = val
         return self
 
     def save(self, x:int, y:int, z:int):
-        key = self._base.format(x=x,y=y,z=z)
-        print(key)
+        key = self._keyfmt.format(x=x,y=y,z=z)
+        #print(key)
         if key not in self._cache:
             return False
-        dir = os.path.dirname(key)
+        path = self._base.format(x=x,y=y,z=z)
+        dir = os.path.dirname(path)
+        print(f"Saving check : {dir} : {os.path.exists(dir)}")
         if not os.path.exists(dir):
             os.makedirs(dir)
-        self._savefunc(key, self._cache[key])
+        self._savefunc(path, self._cache[key])
         return True
 
     def set_save(self, x:int, y:int, z:int, val):
@@ -81,9 +84,9 @@ class XYZHttpGeneric(XYZGeneric):
         super().__init__(base, loadfunc=loadfunc, **kwargs)
 
     def get(self, x:int, y:int, z:int):
-        key = self._base.format(x=x,y=y,z=z)
+        key = self._keyfmt.format(x=x,y=y,z=z)
         if key not in self._base:
-            res = requests.get(key)
+            res = requests.get(self._base.format(x=x,y=y,z=z))
             if res.status_code != 200:
                 res.raise_for_status()
                 #raise OSError(f"Failed to fetch {key}")

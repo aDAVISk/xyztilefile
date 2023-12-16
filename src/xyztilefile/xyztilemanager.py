@@ -21,5 +21,9 @@ class XYZTileManager:
         except OSError:
             pass
         res = self._src.get(x,y,z)
+        print(self._lcl)
         self._lcl.save(x,y,z)
         return res
+
+    def __repr__(self):
+        return f"<{repr(self.__class__)}: {repr(self._src)}, {repr(self._lcl)}>"
