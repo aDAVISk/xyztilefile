@@ -33,5 +33,6 @@ please check './test/' for more sample codes
 - json : encoding must be UTF-8
 - png : with skit-image (tested with `./test/test_png.py`)
 - npy : with numpy (tested with `./test/test_npy.py`)
-
+- pickle/pkl : only for local file with extra keyword setting at the initialization `XYZTileFile(basepath, allow_pickle=True)` (tested with `./test/test_pickle.py`)
+ 
 - (generic : this format is basic but your customization is needed.)
