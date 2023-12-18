@@ -9,25 +9,28 @@ xyz = calc_xyz_from_lonlat
 
 data = {"var":[1,2,3]}
 print("Initial")
-test = XYZTileFile("./tile_sample2/{z}/{x}/{y}.pkl", allow_pickle=True)
-pp.pprint(test)
+try:
+    test = XYZTileFile("./tile_sample2/{z}/{x}/{y}.pkl")#, allow_pickle=True)
+    pp.pprint(test)
 
-print()
-print("Set data")
-test.set(x,y,z,data)
-pp.pprint(test)
+    print()
+    print("Set data")
+    test.set(x,y,z,data)
+    pp.pprint(test)
 
-print()
-print("Save & clear cache")
-test.save(x,y,z)
-test.clc()
-pp.pprint(test)
+    print()
+    print("Save & clear cache")
+    test.save(x,y,z)
+    test.clc()
+    pp.pprint(test)
 
-print()
-print("Load the saved data")
-data2 = test.get(*xyz(135.0,35.0,15))
-pp.pprint(data2)
-pp.pprint(test)
+    print()
+    print("Load the saved data")
+    data2 = test.get(*xyz(135.0,35.0,15))
+    pp.pprint(data2)
+    pp.pprint(test)
+except RuntimeError as e:
+    print(f"RuntimeError is detected as expected: {e}")
 
 print()
 print("Testing HTTP npy")
