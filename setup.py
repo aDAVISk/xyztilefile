@@ -11,7 +11,7 @@ with open(os.path.join(os.path.dirname(__file__), 'README.md'), encoding='utf-8'
 
 setup(
     name='xyztilefile',  # パッケージ名（pip listで表示される）
-    version="0.3.1",  # バージョン
+    version="0.3.2",  # バージョン
     description="manage files in xyz tile format",  # 説明
     author='Akito Davis Kawamura',  # 作者名
     license='MIT',  # ライセンス
