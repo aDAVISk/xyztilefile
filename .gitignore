@@ -3,3 +3,4 @@
 __pycache__/
 *.egg-info/
 tile_sample2/
+build/

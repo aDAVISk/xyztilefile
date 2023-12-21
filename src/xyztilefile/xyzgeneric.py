@@ -80,8 +80,8 @@ class XYZGeneric:
         self._cache = cache
 
 class XYZHttpGeneric(XYZGeneric):
-    def __init__(self, base, loadfunc=None, **kwargs):
-        super().__init__(base, loadfunc=loadfunc, **kwargs)
+    def __init__(self, base, loadfunc=_loadfunc, **kwargs):
+        super().__init__(base, loadfunc=loadfunc, savefunc=None, **kwargs)
 
     def get(self, x:int, y:int, z:int):
         key = self._keyfmt.format(x=x,y=y,z=z)
